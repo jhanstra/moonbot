@@ -1,6 +1,6 @@
 
-import { BINANCE, KUCOIN } from './enums/exchanges'
-import { log, error, binancePublic, kucoinPublic } from './utils'
+import { BINANCE, KUCOIN } from '../enums/exchanges'
+import { log, error, binancePublic, kucoinPublic } from '../utils'
 
 const getSymbolsArrayFromFullData = (marketData) => {
   let symbols = []

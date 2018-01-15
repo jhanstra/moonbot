@@ -1,29 +1,30 @@
-import { log, error } from './log'
-import { subscribers } from '../settings'
-const twilio = require('twilio')
+// import { log, error } from './log'
+// import { subscribers } from '../settings'
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID
-const authToken = process.env.TWILIO_AUTH_TOKEN
+// const twilio = require('twilio')
 
-const client = new twilio(accountSid, authToken)
-const twilioNumber = '+15123776814'
+// const accountSid = process.env.TWILIO_ACCOUNT_SID
+// const authToken = process.env.TWILIO_AUTH_TOKEN
 
-const sendToAllSubscribers = (message) => {
-  return subscribers.map(subscriber => sendSms(subscriber.phone, message))
-}
+// const client = new twilio(accountSid, authToken)
+// const twilioNumber = '+15123776814'
 
-const sendSms = async (subscriber, message) => {
-  let sms
-  try {
-    sms = await client.messages.create({
-      body: message,
-      to: subscriber,
-      from: twilioNumber
-    })
-  } catch (e) { error(e) }
-}
+// const sendToAllSubscribers = (message) => {
+//   return subscribers.map(subscriber => sendSms(subscriber.phone, message))
+// }
 
-export {
-  sendSms,
-  sendToAllSubscribers,
-}
+// const sendSms = async (subscriber, message) => {
+//   let sms
+//   try {
+//     sms = await client.messages.create({
+//       body: message,
+//       to: subscriber,
+//       from: twilioNumber,
+//     })
+//   } catch (e) { error(e) }
+// }
+
+// export {
+//   sendSms,
+//   sendToAllSubscribers,
+// }
