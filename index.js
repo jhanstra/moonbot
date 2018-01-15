@@ -1,18 +1,11 @@
 #!/usr/bin/env node --harmony
 'use strict'
 
-import { getAllSymbols, placeBuyOrder } from './api'
-import { coins } from './coins'
+import { targetMarkets } from './targetMarkets'
 import { BINANCE, KUCOIN } from './enums/exchanges'
-import buyTypes from './enums/buyTypes'
-import { getExchangeSymbol } from './utils/utils'
-import axios from 'axios'
-import ccxt from 'ccxt'
+import { log, error, sendSms, sendToAllSubscribers } from './utils'
+import { getMarketSymbols } from './api/markets'
 
-let binance = new ccxt.binance({
-  apiKey: process.env.BINANCE_API_KEY,
-  secret: process.env.BINANCE_SECRET_KEY,
-})
 
 // const placeOrder = () => {
 //   try {
@@ -27,34 +20,25 @@ let binance = new ccxt.binance({
 //   }
 // }
 
-const moon = async () => {
-  /* Binance: Check for new coins */
-  const symbols = await getAllSymbols(BINANCE)
-
-  coins.map((coin) => {
-    if (symbols.find(symbol => symbol === getExchangeSymbol(coin.ticker, BINANCE)) 
-          && coin.awaitedExchanges.includes(BINANCE)) {
-      
-      //placeOrder()
-
-    //  placeBuyOrder({
-    //     exchange: BINANCE, 
-    //     ticker: coin.ticker, 
-    //     buyType: buyTypes.MARKET, 
-    //     quantity: 0.05,
-    //   })
-
-
-      // sendText()
-      console.log('buy da coin!', coin.name)
+const checkForNewMarkets = (exchange, exchangeSymbols, targetMarkets) => {
+  log(exchangeSymbols)
+  targetMarkets.map((targetMarket) => {
+    if (exchangeSymbols.includes(targetMarket.symbol) && targetMarket.awaitedExchanges.includes(exchange)) {
+      sendToAllSubscribers(`Test from Moonbot: ${targetMarket.name} is now on ${exchange.name}!`)
       return null
     }
-  })
-  /* If coin is in coins.js, place buy order up to the buy price */
-  
+  })  
 }
 
-// moon()
+const moon = async () => {
+  let binanceSymbols, kucoinSymbols
+  try {
+    binanceSymbols = await getMarketSymbols(BINANCE)
+    kucoinSymbols = await getMarketSymbols(KUCOIN)
+  } catch (e) { error(e) }
+  checkForNewMarkets(BINANCE, binanceSymbols, targetMarkets)
+  checkForNewMarkets(KUCOIN, kucoinSymbols, targetMarkets)
+}
 
-
-setInterval(moon, 5000)
+moon()
+// setInterval(moon, 10000)

@@ -1,7 +1,0 @@
-{
-  "uid": "moonbot",
-  "append": true,
-  "script": "dist/index.js",
-  "minUptime": 10000,
-  "spinSleepTime": 10000
-}

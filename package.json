@@ -20,6 +20,10 @@
     "dotenv": "^4.0.0",
     "forever": "^0.15.3",
     "lodash": "^4.17.4",
-    "rimraf": "^2.6.2"
+    "log": "^1.4.0",
+    "rimraf": "^2.6.2",
+    "simple-node-logger": "^0.93.33",
+    "twilio": "^3.11.0",
+    "winston": "^2.4.0"
   }
 }

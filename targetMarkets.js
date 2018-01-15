@@ -3,27 +3,31 @@
 import { BINANCE, GDAX, KUCOIN } from './enums/exchanges'
 import { sellMethods } from './enums/sellMethods'
 
-const coins = [
+const targetMarkets = [
   {
     ticker: 'WAN',
+    symbol: 'WAN/BTC',
     name: 'Wanchain',
     buyUpToMarketCap: 750000000,
     investment: 'A100',
     circulatingSupply: 107000000,
     askMeFirst: false,
     sell: null,
-    awaitedExchanges: [BINANCE, KUCOIN]
+    awaitedExchanges: [BINANCE, KUCOIN],
+    availableExchanges: []
   },
   {
     ticker: 'LTC',
+    symbol: 'LTC/BTC',
     name: 'Litecoin',
     investment: 'A100',
     askMeFirst: false,
     sell: null,
-    awaitedExchanges: [BINANCE]
+    awaitedExchanges: [BINANCE, KUCOIN]
   },
   {
     ticker: 'XRP',
+    symbol: 'XRP/BTC',
     name: 'Ripple',
     investment: 'B100',
     askMeFirst: true,
@@ -33,5 +37,5 @@ const coins = [
 ]
 
 export {
-  coins,
+  targetMarkets,
 }
